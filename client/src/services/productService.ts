@@ -6,11 +6,10 @@ export interface Product {
   name: string
   price: number
   description?: string
-  stockQuantity?: number
+  status?: string
   productType?: string
   categoryId?: number
   imageUrl?: string
-  details?: string
   createdAt?: string
   updatedAt?: string
 }

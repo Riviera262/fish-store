@@ -17,10 +17,9 @@ const AdminProducts: React.FC = () => {
     name: '',
     price: '',
     description: '',
-    stockQuantity: '',
     productType: '',
-    detail: '',
     categoryId: '',
+    status: 'active', // Trường status mới, mặc định là 'active'
   })
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [imageFiles, setImageFiles] = useState<FileList | null>(null)
@@ -74,10 +73,9 @@ const AdminProducts: React.FC = () => {
       dataForm.append('name', formData.name)
       dataForm.append('price', formData.price)
       dataForm.append('description', formData.description)
-      dataForm.append('stockQuantity', formData.stockQuantity)
       dataForm.append('productType', formData.productType)
       dataForm.append('categoryId', formData.categoryId)
-      dataForm.append('detail', formData.detail)
+      dataForm.append('status', formData.status) // Gắn trường status vào formData
       if (imageFiles) {
         Array.from(imageFiles).forEach((file) => {
           dataForm.append('images', file)
@@ -92,10 +90,9 @@ const AdminProducts: React.FC = () => {
         name: '',
         price: '',
         description: '',
-        stockQuantity: '',
         productType: '',
-        detail: '',
         categoryId: '',
+        status: 'active',
       })
       setImageFiles(null)
       setPreviewUrls([])
@@ -113,10 +110,9 @@ const AdminProducts: React.FC = () => {
       name: product.name,
       price: String(product.price),
       description: product.description || '',
-      stockQuantity: String(product.stockQuantity || 0),
       productType: product.productType || '',
-      detail: product.details || '',
       categoryId: product.categoryId ? String(product.categoryId) : '',
+      status: product.status || 'active',
     })
     setImageFiles(null)
     setPreviewUrls([])
@@ -165,15 +161,7 @@ const AdminProducts: React.FC = () => {
           onChange={handleInputChange}
         />
         <br />
-        <input
-          type="number"
-          name="stockQuantity"
-          placeholder="Stock Quantity"
-          value={formData.stockQuantity}
-          onChange={handleInputChange}
-        />
-        <br />
-        {/* Sử dụng input có datalist để cho phép chọn hoặc nhập productType mới */}
+        {/* Bỏ stockQuantity */}
         <label htmlFor="productType">Product Type:</label>
         <input
           list="productTypeOptions"
@@ -205,12 +193,17 @@ const AdminProducts: React.FC = () => {
           ))}
         </select>
         <br />
-        <textarea
-          name="detail"
-          placeholder="Product Details (additional information)"
-          value={formData.detail}
+        <label htmlFor="status">Status:</label>
+        <select
+          id="status"
+          name="status"
+          value={formData.status}
           onChange={handleInputChange}
-        />
+          required
+        >
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
         <br />
         <label>
           Images:
@@ -246,10 +239,9 @@ const AdminProducts: React.FC = () => {
                 name: '',
                 price: '',
                 description: '',
-                stockQuantity: '',
                 productType: '',
-                detail: '',
                 categoryId: '',
+                status: 'active',
               })
               setImageFiles(null)
               setPreviewUrls([])
@@ -264,7 +256,7 @@ const AdminProducts: React.FC = () => {
         {products.map((prod) => (
           <li key={prod.id}>
             <strong>{prod.name}</strong> - ${prod.price} - {prod.productType} -{' '}
-            {prod.details}
+            Status: {prod.status}{' '}
             {prod.imageUrl && (
               <img
                 src={`http://localhost:3000${prod.imageUrl}`}

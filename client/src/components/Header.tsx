@@ -31,7 +31,6 @@ const Header: React.FC = () => {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Xử lý logic search (ví dụ: navigate đến trang kết quả search)
     console.log('Search query:', searchQuery)
   }
 
@@ -39,7 +38,6 @@ const Header: React.FC = () => {
     <header className="home-header">
       <div className="header-top">
         <h2>Welcome to Fish Store!</h2>
-        {/* Thanh Search */}
         <form onSubmit={handleSearch} className="header-search">
           <input
             type="text"
@@ -52,15 +50,30 @@ const Header: React.FC = () => {
         <div className="header-links">
           {user ? (
             <>
-              <span>Hello, {user.username}</span>
+              <div className="user-info">
+                {user.avatar ? (
+                  <Link to="/profile">
+                    <img
+                      src={user.avatar}
+                      alt={user.username}
+                      className="user-avatar"
+                    />
+                  </Link>
+                ) : (
+                  <span className="user-no-avatar">Hello, {user.username}</span>
+                )}
+              </div>
               <Link to="/cart" className="header-link">
                 Cart ({cartCount})
               </Link>
-              <button onClick={handleLogout} className="header-button">
+              <button
+                onClick={handleLogout}
+                className="header-button login-button"
+              >
                 Logout
               </button>
               {user.role === 'admin' && (
-                <Link to="/admin" className="header-link">
+                <Link to="/admin" className="header-link admin-button">
                   Admin Dashboard
                 </Link>
               )}
@@ -69,12 +82,12 @@ const Header: React.FC = () => {
             <nav>
               <ul className="nav-list">
                 <li>
-                  <Link to="/login" className="header-link">
+                  <Link to="/login" className="header-link login-button">
                     Login
                   </Link>
                 </li>
                 <li>
-                  <Link to="/register" className="header-link">
+                  <Link to="/register" className="header-link register-button">
                     Register
                   </Link>
                 </li>

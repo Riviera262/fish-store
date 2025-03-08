@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState, AppDispatch } from '../app/store'
 import { fetchCart } from '../features/cart/cartSlice'
 import { getProducts } from '../services/productService'
-import Header from '../components/Header'
-import Navbar from '../components/Navbar'
 import Banner from '../components/Banner'
 import FilterControls from '../components/FilterControls'
 import ProductList from '../components/ProductList'
@@ -83,8 +81,6 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-container">
-      <Header />
-      <Navbar />
       <Banner />
       <FilterControls
         categories={[]} // Không hiển thị danh mục ở đây nữa vì đã có trong Navbar

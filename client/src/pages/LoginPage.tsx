@@ -1,10 +1,10 @@
-// src/pages/LoginPage.tsx
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { login, LoginResponse } from '../services/authService'
 import { setUser } from '../features/auth/authSlice'
 import { AppDispatch } from '../app/store'
+import './Auth.css'
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('')
@@ -26,31 +26,33 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <button type="submit">Login</button>
-      </form>
+    <div className="auth-container">
+      <div className="auth-form">
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Email:
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          <button type="submit" className="auth-button">
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

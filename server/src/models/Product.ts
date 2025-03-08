@@ -6,10 +6,9 @@ class Product extends Model {
   public name!: string
   public description!: string
   public price!: number
-  public stockQuantity!: number
+  public status!: string
   public imageUrl?: string
   public productType!: string
-  public details?: string
   public categoryId!: number
 }
 
@@ -26,11 +25,6 @@ Product.init(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-    stockQuantity: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      field: 'stock_quantity',
-    },
     imageUrl: {
       type: DataTypes.STRING(255),
       field: 'image_url',
@@ -39,8 +33,10 @@ Product.init(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    details: {
-      type: DataTypes.TEXT,
+    status: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      defaultValue: 'active',
     },
     categoryId: {
       type: DataTypes.INTEGER,

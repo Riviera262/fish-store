@@ -5,7 +5,6 @@ class Category extends Model {
   public id!: number
   public name!: string
   public description!: string
-  public status!: 'active' | 'inactive'
   public imageUrl?: string
 }
 
@@ -17,10 +16,6 @@ Category.init(
     },
     description: {
       type: DataTypes.TEXT,
-    },
-    status: {
-      type: DataTypes.ENUM('active', 'inactive'),
-      defaultValue: 'active',
     },
     imageUrl: {
       type: DataTypes.STRING(255),

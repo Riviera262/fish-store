@@ -13,7 +13,6 @@ const AdminCategories: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    status: 'active', // mặc định active
   })
   const [editingCategory, setEditingCategory] = useState<Category | null>(null)
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -57,7 +56,6 @@ const AdminCategories: React.FC = () => {
       const dataForm = new FormData()
       dataForm.append('name', formData.name)
       dataForm.append('description', formData.description)
-      dataForm.append('status', formData.status)
       if (imageFile) {
         dataForm.append('image', imageFile)
       }
@@ -66,7 +64,7 @@ const AdminCategories: React.FC = () => {
       } else {
         await createCategory(dataForm)
       }
-      setFormData({ name: '', description: '', status: 'active' })
+      setFormData({ name: '', description: '' })
       setImageFile(null)
       setPreviewUrl('')
       setEditingCategory(null)
@@ -82,7 +80,6 @@ const AdminCategories: React.FC = () => {
     setFormData({
       name: category.name,
       description: category.description || '',
-      status: category.status || 'active',
     })
     // Nếu có imageUrl, set previewUrl
     setPreviewUrl(category.imageUrl || '')
@@ -119,17 +116,6 @@ const AdminCategories: React.FC = () => {
           onChange={handleInputChange}
         />
         <br />
-        <label htmlFor="status">Status:</label>
-        <select
-          name="status"
-          id="status"
-          value={formData.status}
-          onChange={handleInputChange}
-        >
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-        <br />
         <label>
           Upload Image:
           <input type="file" onChange={handleFileChange} accept="image/*" />
@@ -147,7 +133,7 @@ const AdminCategories: React.FC = () => {
             type="button"
             onClick={() => {
               setEditingCategory(null)
-              setFormData({ name: '', description: '', status: 'active' })
+              setFormData({ name: '', description: '' })
               setImageFile(null)
               setPreviewUrl('')
             }}
@@ -160,7 +146,7 @@ const AdminCategories: React.FC = () => {
       <ul>
         {categories.map((cat) => (
           <li key={cat.id}>
-            <strong>{cat.name}</strong> — {cat.description} — {cat.status}
+            <strong>{cat.name}</strong> — {cat.description}
             {cat.imageUrl && (
               <img
                 src={cat.imageUrl}

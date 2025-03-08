@@ -14,14 +14,14 @@ export const createCategory = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { name, description, status } = req.body
+    const { name, description } = req.body
     if (!name) {
       res.status(400).json({ error: 'Category name is required' })
       return
     }
 
     // Tạo category mới (chưa có imageUrl)
-    let category = await Category.create({ name, description, status })
+    let category = await Category.create({ name, description })
 
     // Tạo folder cho category dựa trên tên đã sanitize
     const folderName = sanitizeFolderName(name)
@@ -37,7 +37,6 @@ export const createCategory = async (
     // Nếu có file được upload, xử lý file và cập nhật imageUrl cho category
     if (req.file) {
       const ext = path.extname(req.file.originalname)
-      // Gắn tên file gồm tên category đã sanitized + timestamp để tránh trùng lặp
       const fileName = `${folderName}-${Date.now()}${ext}`
       const destPath = path.join(categoryFolder, fileName)
       fs.renameSync(req.file.path, destPath)
@@ -95,10 +94,9 @@ export const updateCategory = async (
       res.status(404).json({ error: 'Category not found' })
       return
     }
-    const { name, description, status } = req.body
+    const { name, description } = req.body
     category.name = name || category.name
     category.description = description || category.description
-    category.status = status || category.status
 
     // Nếu có file mới upload, xử lý và cập nhật imageUrl
     if (req.file) {

@@ -4,7 +4,6 @@ export interface Category {
   id: number
   name: string
   description?: string
-  status?: string
   imageUrl?: string
   createdAt?: string
   updatedAt?: string

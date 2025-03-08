@@ -1,0 +1,90 @@
+/* Container tổng cho trang Login/Register */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+/* Form chứa nội dung đăng nhập/đăng ký */
+.auth-form {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Tiêu đề của form */
+.auth-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+.register-form .avatar-preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.avatar-preview {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #3498db;
+}
+
+/* Form hiển thị theo cột */
+.auth-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label và input */
+.auth-form label {
+  margin-bottom: 15px;
+  color: #555;
+  font-size: 14px;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.avatar-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-size: 14px;
+  border: 2px solid #3498db;
+}
+/* Nút submit */
+.auth-button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.auth-button:hover {
+  background-color: #2980b9;
+}

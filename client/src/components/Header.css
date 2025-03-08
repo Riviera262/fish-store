@@ -1,0 +1,171 @@
+.home-header {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+  padding: 15px 30px; /* Tăng padding để header rộng hơn */
+}
+
+.header-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Tiêu đề Welcome */
+.home-header h2 {
+  font-size: 28px; /* Tăng font-size để tiêu đề lớn hơn */
+  color: #333;
+  margin: 0 30px 10px 0;
+}
+
+/* Thanh search */
+.header-search {
+  flex-grow: 1;
+  max-width: 500px; /* Tăng max-width */
+  margin: 10px 30px;
+  display: flex;
+}
+
+.header-search input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+
+.header-search button {
+  padding: 10px 14px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+}
+
+.header-search button:hover {
+  background-color: #555;
+}
+
+/* Header links */
+.header-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.header-link:hover {
+  text-decoration: underline;
+}
+
+/* Button style */
+.header-button {
+  padding: 10px 14px;
+  font-size: 16px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.header-button:hover {
+  background-color: #c0392b;
+}
+
+/* Styles cho nav-list (Login & Register) */
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-list li a {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #fff;
+}
+
+.login-button {
+  background-color: #3498db;
+}
+
+.register-button {
+  background-color: #2ecc71;
+}
+
+.nav-list li a:hover {
+  opacity: 0.9;
+}
+
+/* Nút Admin Dashboard */
+.admin-button {
+  background-color: #8e44ad;
+  color: #fff;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.admin-button:hover {
+  background-color: #732d91;
+}
+
+/* Styles cho user avatar */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #3498db;
+  image-rendering: 'auto'; /* Hoặc thử 'crisp-edges' nếu phù hợp */
+}
+
+.user-no-avatar {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-search {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .header-links {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}

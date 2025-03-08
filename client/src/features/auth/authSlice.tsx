@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface User {
   id: number
+  avatar: string
   username: string
   email: string
   role: string // Thông tin role vẫn có nhưng chỉ lưu tạm trong bộ nhớ

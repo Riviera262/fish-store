@@ -21,8 +21,8 @@ export const createProduct = async (
     console.log('createProduct - Request body:', req.body)
     console.log('createProduct - Request files:', req.files)
 
-    const { name, description, price, stockQuantity, productType, categoryId } =
-      req.body
+    // Lấy các trường từ body
+    const { name, description, price, productType, categoryId } = req.body
 
     if (!name || !price || !productType || !categoryId) {
       res.status(400).json({
@@ -63,14 +63,14 @@ export const createProduct = async (
     let mainImageUrl: string | null = null
     let imageUrls: string[] = []
     if (req.files && Array.isArray(req.files) && req.files.length > 0) {
-      // Sử dụng tên sản phẩm đã sanitize để tạo tên file mới cho mỗi file
+      // Tạo tên file mới cho mỗi file upload
       req.files.forEach((file, index) => {
         const ext = path.extname(file.originalname)
         const newFileName = `${productFolderName}-${Date.now()}-${index}${ext}`
         const destPath = path.join(productFolder, newFileName)
         console.log(`Moving file from ${file.path} to ${destPath}`)
         fs.renameSync(file.path, destPath)
-        // Đường dẫn URL mới theo cấu trúc yêu cầu
+        // Đường dẫn URL theo cấu trúc yêu cầu
         const url = `/categories/${categoryFolderName}/products/${productFolderName}/${newFileName}`
         imageUrls.push(url)
       })
@@ -79,14 +79,15 @@ export const createProduct = async (
       console.log('No file uploaded.')
     }
 
-    // Tạo sản phẩm
+    // Tạo sản phẩm mới
+    // Lưu ý: Bỏ trường stockQuantity, thêm status với giá trị mặc định là 'active'
     const product = await Product.create({
       name,
       description,
       price,
-      stockQuantity,
       imageUrl: mainImageUrl,
       productType,
+      status: 'active',
       categoryId,
     })
 
@@ -122,7 +123,7 @@ export const updateProduct = async (
       return
     }
 
-    const { name, description, price, stockQuantity, productType, categoryId } =
+    const { name, description, price, productType, categoryId, status } =
       req.body
 
     // Nếu thay đổi category hoặc có file mới, cập nhật folder dựa trên category hiện tại
@@ -144,7 +145,6 @@ export const updateProduct = async (
       Array.isArray(req.files) &&
       req.files.length > 0
     ) {
-      // Xác định folder cho category
       const categoryFolderName = sanitizeFolderName(category.name)
       const baseCategoryFolder = path.join(
         __dirname,
@@ -155,7 +155,6 @@ export const updateProduct = async (
         fs.mkdirSync(baseCategoryFolder, { recursive: true })
       }
 
-      // Dùng tên mới nếu có, nếu không giữ nguyên tên cũ của product
       const productFolderName = name
         ? sanitizeFolderName(name)
         : sanitizeFolderName(product.name)
@@ -188,12 +187,12 @@ export const updateProduct = async (
       }
     }
 
-    // Cập nhật các trường khác
+    // Cập nhật các trường khác (bỏ stockQuantity, thêm status nếu được gửi lên)
     product.name = name || product.name
     product.description = description || product.description
     product.price = price || product.price
-    product.stockQuantity = stockQuantity || product.stockQuantity
     product.productType = productType || product.productType
+    if (status) product.status = status
 
     await product.save()
     res.json(product)
@@ -208,13 +207,16 @@ export const getAllProducts = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { categoryId, productType } = req.query
+    const { categoryId, productType, status } = req.query
     const whereClause: any = {}
     if (categoryId) {
       whereClause.categoryId = categoryId
     }
     if (productType) {
       whereClause.productType = productType
+    }
+    if (status) {
+      whereClause.status = status
     }
     const products = await Product.findAll({ where: whereClause })
     res.json(products)

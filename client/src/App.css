@@ -1,0 +1,31 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  background-color: #fff;
+  color: #333;
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 1400px; /* Mở rộng container nếu cần */
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  flex: 1; /* Nội dung chính mở rộng để đẩy footer xuống dưới */
+}
+
+/* Khi màn hình nhỏ (ví dụ: điện thoại), điều chỉnh padding và margin */
+@media (max-width: 600px) {
+  .app-container {
+    padding: 10px;
+    margin: 0 10px;
+  }
+}
